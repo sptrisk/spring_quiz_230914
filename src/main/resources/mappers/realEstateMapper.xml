@@ -35,7 +35,7 @@
 		WHERE
 			`rentPrice` &lt;  #{rentPrice}
 	</select>
-		<select id="selectRealEstateAreaPrice" parameterType="int" resultType="com.quiz.lesson03.domain.RealEstate">
+		<select id="selectRealEstateAreaPrice" parameterType="map" resultType="com.quiz.lesson03.domain.RealEstate">
 		SELECT
 			`id`
 			,`realtorId`
@@ -58,5 +58,55 @@
 			`createdAt`
 		DESC
 	</select>
+	<insert id="insertRealEstate" parameterType="com.quiz.lesson03.domain.RealEstate">
+		INSERT INTO `real_estate`
+		(
+			 `realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			 #{realtorId}
+			,#{address}
+			,#{area}
+			,#{type}
+			,#{price}
+			,#{rentPrice}
+			,NOW()
+			,NOW()
+		)
+	</insert>
+	<insert id="insertRealEstateAsField" parameterType="map">
+	INSERT INTO `real_estate`
+		(
+			 `realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			 #{realtorId}
+			,#{address}
+			,#{area}
+			,#{type}
+			,#{price}
+			,#{rentPrice}
+			,NOW()
+			,NOW()
+		)
+	</insert>
+	<update id="updateRealEstateById" parameterType="map">
+	</update>
 </mapper>
 
