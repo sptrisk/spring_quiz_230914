@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.quiz.lesson02.domain.store;
+import com.quiz.lesson02.domain.store1;
 
 @Repository
-public interface storeMapper {
+public interface storeMapper1 {
 
-		public List<store> selectStoreList(); 
+	public List<store1> selectStoreList(); 
 }

@@ -1,14 +1,19 @@
-package com.quiz.lesson02.domain;
+package com.quiz.store.domain;
 
 import java.util.Date;
 
-public class store {
+public class Store {
+	
 	private int id;
 	private String name;
 	private String phoneNumber;
 	private String address;
 	private String businessNumber;
 	private String introduce;
+	private Date createdAt;
+	private Date updatedAt;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -57,8 +62,6 @@ public class store {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	private Date createdAt;
-	private Date updatedAt;
 	
 		
 }
