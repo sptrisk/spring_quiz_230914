@@ -29,8 +29,9 @@
 			<tbody>
 				<c:forEach items="${bookmarkList}" var="List">
 				<tr>
+					<td>${List.id}</td>
 					<td>${List.name}</td>
-					<td>${List.url}</td>
+					<td><a href="${List.url}">${List.url}</td>
 				</tr>
 				</c:forEach>
 			</tbody>
