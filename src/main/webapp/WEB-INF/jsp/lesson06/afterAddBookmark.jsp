@@ -24,6 +24,7 @@
 					<th>No.</th>
 					<th>이름</th>
 					<th>주소</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,10 +33,54 @@
 					<td>${List.id}</td>
 					<td>${List.name}</td>
 					<td><a href="${List.url}">${List.url}</td>
+							<%-- 1) value로 값 넣기 --%>
+					<%-- <button type="button" class="del-btn btn btn-danger" value="${List.id}">삭제</button> --%>
+						<%-- data로 값 넣기 --%>
+					<td><button type="button" class="del-btn btn btn-danger" data-list-id="${List.id}">삭제</button></td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
+<script>
+	$(document).ready(function() {
+		// 삭제 버튼 클릭
+		$('.del-btn').on('click', function(e) {
+			// alert("클릭");
+			// 1) button value에 담은 값 가져오기
+			// let id = $(this).val();
+			// let id = $(this).attr("value");
+			// let id = e.target.value;
+			
+			
+			// 2) data를 이용해서 값 가져오기
+			// 태그 영역 : data-list-id
+			// 스크립트 영역 : .data('list-id')
+			let id = $(this).data('list-id');
+			// alert(id);
+			$.ajax({
+				// request
+				type:"delete"
+				, url:"/lesson06/delete-bookmark"
+				, data:{"id":id}
+			
+				//response
+				, success:function(data){
+					if (data.code == 200){
+						// 성공
+						location.reload(true);  // 새로고침
+					} else if (data.code == 500) {
+						// 실패
+						alert(data.error_mesage);
+					}
+				}
+				, error:function(request, status, error){
+					alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			})
+		});
+		
+	});
+</script>
 </body>
 </html>

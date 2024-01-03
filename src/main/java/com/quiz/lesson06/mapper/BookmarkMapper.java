@@ -15,4 +15,10 @@ public interface BookmarkMapper {
 	
 	public List<Bookmark> selectBookmarkList();
 	
+	
+	// input : url      output: List<>
+	public List<Bookmark> selectBookmarkListByUrl(String url);
+	
+	public int deleteBookmarkById(int id);
+	
 }

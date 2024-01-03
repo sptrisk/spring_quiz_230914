@@ -54,4 +54,44 @@ public class Lesson06Controller {
 		model.addAttribute("bookmarkList", bookmarkList);
 		return "lesson06/afterAddBookmark";
 	}
+	
+	// url중복확인 - AJAX요청
+	@ResponseBody
+	@PostMapping("/is-duplicated-url")
+	public Map<String, Object> isDuplicatedUrl(
+			@RequestParam("url") String url) {
+		
+		// db select
+		boolean isDuplicated = bookmarkBO.isDuplicatedUrl(url);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("is_duplicated", isDuplicated);
+		
+		return result;
+		
+	}
+	
+	// 즐겨찾기 삭제 - AJAX 요청
+	@ResponseBody
+	@PostMapping("/delete-bookmark")
+	public Map<String, Object> deleteBookmark(
+			@RequestParam("id") int id) {
+		
+		// db delete
+		int rowCount = bookmarkBO.deleteBookmarkById(id);
+		
+		Map<String, Object> result = new HashMap<>();
+		if (rowCount > 0) {
+			result.put("code", 200);
+			result.put("result", "성공");
+		} else {
+			result.put("code", 500);
+			result.put("error_message", "삭제하는데 실패했습니다.");
+		}
+		
+		return result;
+	}
+	
+	
 }

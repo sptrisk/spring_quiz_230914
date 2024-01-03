@@ -26,14 +26,55 @@
 		<input class="form-control col-10" id="url">
 		<button class="btn btn-info col-1 ml-3" id="urlCheckbtn">중복확인</button>
 		</div>
-		<small id="urlStatus">
-		
-		</small>
+		<small id="urlStatus" class="text-danger d-none">중복된 url입니다.</small>
+		<small id="availableUrlStatus" class="text-danger d-none">저장 가능한 url입니다.</small>
 		<input type="button" id="addBtn" value="추가" class="form-control mt-3 btn btn-success">
 	</div>
 	
 <script>
 	$(document).ready(function() {
+		// 중복확인
+		$("#urlCheckbtn").click('on', function(){
+			// alert("중복");
+			let url = $("#url").val().trim();
+			
+			if (!url) {
+				alert("url을 입력하세요.");
+				return;
+			}
+			
+			// AJAX 통신 - DB 중복 확인
+			$.ajax({
+				//request
+				type:"POST" // url같은 긴 String을 보낼때는 post 방식
+				, url:"/lesson06/is-duplicated-url"
+				, data:{"url":url}
+				
+				//response
+				, success:function(data) { // data : JSON => dictionary
+					// {"code":200, "is_duplicated":true}
+					if (data.is_duplicated) {
+						// 중복
+						$("#urlStatus").removeClass("d-none");
+						$("#availableUrlStatus").addClass("d-none");
+					} else {
+						// 중복아님 => 사용 가능
+						$("#availableUrlStatus").removeClass("d-none");
+						$("#urlStatus").addClass("d-none");
+					}
+					
+				}
+				, error:function(request, status, error){
+					alert("중복 확인에 실패했습니다.");
+				}
+			});
+			
+			
+			
+		});
+		
+		
+		
 		$("#addBtn").click('on', function() {
 			
 			// validation
@@ -51,9 +92,7 @@
 				alert("주소를 제대로 입력하세요. http, https 포함");
 				return;
 			}
-		$("#urlCheckbtn").click('on', function(){
-			
-		})
+
 			
 			$.ajax({
 				//request
