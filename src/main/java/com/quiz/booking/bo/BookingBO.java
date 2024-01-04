@@ -14,7 +14,22 @@ public class BookingBO {
 	@Autowired
 	private BookingMapper bookingMapper;
 	
-	public List<Booking> getbookingListView(){
-		return bookingMapper.selectbookingListView();
+	public List<Booking> getbookingList(){
+		return bookingMapper.selectbookingList();
 	}
+	
+	public int deleteBookingById(int id) {
+		return bookingMapper.deleteBookingById(id);
+	}
+	
+	public void addBooking(String name, String date, int day,
+			int headcount, String phoneNumber) {
+		
+		bookingMapper.insertBooking(name, date, day, headcount, phoneNumber);
+	}
+	
+	public Booking getBookingByNamePhoneNumber(String name, String phoneNumber) {
+		
+	}
+	
 }
