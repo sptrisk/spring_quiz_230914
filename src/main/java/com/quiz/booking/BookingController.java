@@ -91,12 +91,25 @@ public class BookingController {
 	// 예약 확인 - ajax 요청
 	@ResponseBody
 	@PostMapping("/check-booking")
-	public 리턴타입 checkBooking(
+	public Map<String, Object> checkBooking(
 			@RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber) {
 		
+		//{"code":200, "result":booking 객체}
+		//{"code":200, "result":{"name":"김종휘",....}}
+		Map<String, Object> result = new HashMap<>();
 		
 		Booking booking = bookingBO.getBookingByNamePhoneNumber(name, phoneNumber);
+		if (booking == null) {
+			//{"code":500, "error_message":"예약 내역이 존재하지 않습니다."}
+			result.put("code", 500);
+			result.put("error_message", "예약 내역이 존재하지 않습니다.");
+		} else {
+			result.put("code", 200);
+			result.put("result", booking);
+		}
+		
+		return result;
 	}
 	
 }

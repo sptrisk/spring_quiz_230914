@@ -50,7 +50,7 @@
    
                     <!-- 버튼 -->
                     <div class="d-flex justify-content-end mt-3">
-                        <button type="button" id="checkBookingBtn" class="submit-btn btn btn-success">조회하기</button>
+                        <button type="button" id="checkBookingBtn" class="btn btn-success">조회하기</button>
                     </div>
                 </div>
             </section>
@@ -71,9 +71,9 @@
 	</div>
 	
 <script>
-	$(document).ready(function(){
-		$("#checkBookingBtn").on('click', function(){
-			// alert("클릭");
+	$(document).ready(function() {
+		$('#checkBookingBtn').on('click', function() {
+			 alert("클릭");
 			let name = $('#name').val().trim();
 			let phoneNumber = $('#phoneNumber').val().trim();
 			
@@ -94,7 +94,17 @@
 				
 				//response
 				, success:function(data) {
-					
+				  	//{"code":200, "result":{"name":"김종휘",....}}
+					if (data.code == 200) { // 정상(예약내역이 있는경우)
+						alert("이름 : " + data.result.name
+							+ "\n날짜 : " + data.result.date.slice(0,10)
+							+ "\n일수 : " + data.result.day
+							+ "\n인원 : " + data.result.headcount
+							+ "\n상태 : " + data.result.state);
+					} else if (data.code == 500) {
+						alert(data.error_message);
+					}
+						
 				}
 				, error:function(request, status, error) {
 					alert("조회하는데 실패했습니다.");
