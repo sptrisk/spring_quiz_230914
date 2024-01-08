@@ -2,11 +2,11 @@ package com.quiz.store.mapper;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import com.quiz.store.domain.Store;
 
-@Repository
+@Mapper
 public interface StoreMapper {
 
 	public List<Store> selectStoreList(); 
